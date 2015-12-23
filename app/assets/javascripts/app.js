@@ -1,4 +1,4 @@
-angular.module('flapperNews', ['ui.router'])
+angular.module('flapperNews', ['ui.router', 'Devise'])
 .config(['$stateProvider','$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('home', {
@@ -24,6 +24,28 @@ angular.module('flapperNews', ['ui.router'])
 		templateUrl: '/templates/posts.html',
 		controller: 'PostsCtrl'
 	})
+
+   .state('login', {
+      url: '/login',
+      templateUrl: '/templates/_login.html',
+      controller: 'AuthCtrl',
+      onEnter: ['$state', 'Auth', function($state, Auth) {
+        Auth.currentUser().then(function (){
+          $state.go('home');
+        })
+      }]
+    })
+
+    .state('register', {
+      url: '/register',
+      templateUrl: '/templates/_register.html',
+      controller: 'AuthCtrl',
+      onEnter: ['$state', 'Auth', function($state, Auth) {
+        Auth.currentUser().then(function (){
+          $state.go('home');
+        })
+      }]
+    });
 
   $urlRouterProvider.otherwise('home');
 
