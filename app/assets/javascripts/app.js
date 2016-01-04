@@ -3,29 +3,29 @@ angular.module('flapperNews', ['ui.router', 'Devise'])
   $stateProvider
     .state('home', {
       resolve: {
-		postPromise: ['posts', function(posts){
-			return posts.getAll();
-		}]
-	  },
+  		  postPromise: ['posts', function(posts){
+  			 return posts.getAll();
+  		  }]
+      },
 
       url: '/home',
       templateUrl: '/templates/home.html',
       controller: 'MainCtrl'
     })
 
-   .state('posts', {
+    .state('posts', {
    		resolve: {
-		  post: ['$stateParams', 'posts', function($stateParams, posts) {
-		    return posts.get($stateParams.id);
-		  }]
-		},
-		  
-		url: '/posts/{id}',
-		templateUrl: '/templates/posts.html',
-		controller: 'PostsCtrl'
-	})
+  		  post: ['$stateParams', 'posts', function($stateParams, posts) {
+  		    return posts.get($stateParams.id);
+  		  }]
+  		},
+  		  
+  		url: '/posts/{id}',
+  		templateUrl: '/templates/posts.html',
+  		controller: 'PostsCtrl'
+    })
 
-   .state('login', {
+    .state('login', {
       url: '/login',
       templateUrl: '/templates/_login.html',
       controller: 'AuthCtrl',
@@ -48,7 +48,6 @@ angular.module('flapperNews', ['ui.router', 'Devise'])
     });
 
   $urlRouterProvider.otherwise('home');
-
 
 }])
 
